@@ -1,0 +1,68 @@
+ .planner-card {
+     border: 0.5px solid #868686;
+     background-color: #303234;
+     padding: 20px;
+     margin-bottom: 5px;
+     color: #ffffff;
+ }
+
+ .planner-day {
+     border-right: 2px solid #868686;
+     font-weight: bold;
+ }
+
+ .summary-card {
+     border: 2px solid #868686;
+     background-color: #303234;
+     padding: 15px;
+     margin-bottom: 15px;
+     box-shadow: 3px 3px 0px #000;
+     color: #ffffff;
+ }
+
+ .log-table {
+     border: 2px solid #868686;
+     font-size: 0.85rem;
+ }
+
+ .log-table th {
+     background-color: #303234;
+     border: 1px solid #868686;
+     text-align: center;
+     color: #ffffff;
+ }
+
+ .log-table td {
+     border: 1px solid #868686;
+     padding: 4px 8px;
+     vertical-align: middle;
+     background-color: #303234;
+     color: #ffffff;
+ }
+
+ .ojt td {
+     background-color: #379737;
+     color: #000;
+     font-weight: bold;
+     text-align: center;
+ }
+
+ .holiday td {
+     background-color: #37527e;
+     color: #ffffff;
+     font-weight: bold;
+     text-align: center;
+ }
+
+ .weekend td {
+     background-color: #3986d3;
+     color: #000;
+     text-align: center;
+ }
+
+ .absent td {
+     background-color: #751b1b;
+     color: #000000;
+     font-weight: bold;
+     text-align: center;
+ }
