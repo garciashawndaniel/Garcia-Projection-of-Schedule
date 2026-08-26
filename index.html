@@ -53,6 +53,7 @@
             vertical-align: middle;
             background-color: #303234;
             color: #ffffff;
+            transition: background-color 0.2s ease;
         }
 
         .log-table input.logged-hour-input {
@@ -68,31 +69,38 @@
             box-shadow: 0 0 0 0.2rem rgba(55, 151, 55, 0.25);
         }
 
-        .ojt {
+        /* Dynamic Status Classes */
+        .status-cell.ojt {
             background-color: #379737 !important;
             color: #ffffff !important;
             font-weight: bold;
             text-align: center;
         }
 
-        .holiday {
+        .status-cell.absent {
+            background-color: #751b1b !important;
+            color: #ffffff !important;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status-cell.holiday {
             background-color: #37527e !important;
             color: #ffffff !important;
             font-weight: bold;
             text-align: center;
         }
 
-        .weekend {
+        .status-cell.weekend {
             background-color: #303234 !important;
             color: #ffffff !important;
             font-weight: bold;
             text-align: center;
         }
 
-        .absent {
-            background-color: #751b1b !important;
-            color: #ffffff !important;
-            font-weight: bold;
+        .status-cell.default {
+            background-color: #303234 !important;
+            color: #888888 !important;
             text-align: center;
         }
     </style>
@@ -154,400 +162,400 @@
                                 <td>17/08/26</td>
                                 <td><input type="text" id="log-17-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="5:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="5:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-17-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>18/08/26</td>
                                 <td><input type="text" id="log-18-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-18-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>19/08/26</td>
                                 <td><input type="text" id="log-19-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-19-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>20/08/26</td>
                                 <td><input type="text" id="log-20-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-20-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>21/08/26</td>
                                 <td><input type="text" id="log-21-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="holiday">HOLIDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell holiday" id="status-21-08-26">HOLIDAY</td>
                             </tr>
                             <tr>
                                 <td>22/08/26</td>
                                 <td><input type="text" id="log-22-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-22-08-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>23/08/26</td>
                                 <td><input type="text" id="log-23-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-23-08-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>24/08/26</td>
                                 <td><input type="text" id="log-24-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-24-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>25/08/26</td>
                                 <td><input type="text" id="log-25-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-25-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>26/08/26</td>
                                 <td><input type="text" id="log-26-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-26-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>27/08/26</td>
                                 <td><input type="text" id="log-27-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-27-08-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>28/08/26</td>
                                 <td><input type="text" id="log-28-08-26"
-                                        class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        class="form-control form-control-sm text-center logged-hour-input" value="0"
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell absent" id="status-28-08-26">CLASS / ABSENT</td>
                             </tr>
                             <tr>
                                 <td>29/08/26</td>
                                 <td><input type="text" id="log-29-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-29-08-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>30/08/26</td>
                                 <td><input type="text" id="log-30-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-30-08-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>31/08/26</td>
                                 <td><input type="text" id="log-31-08-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="holiday">HOLIDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell holiday" id="status-31-08-26">HOLIDAY</td>
                             </tr>
                             <tr>
                                 <td>01/09/26</td>
                                 <td><input type="text" id="log-01-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-01-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>02/09/26</td>
                                 <td><input type="text" id="log-02-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-02-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>03/09/26</td>
                                 <td><input type="text" id="log-03-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-03-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>04/09/26</td>
                                 <td><input type="text" id="log-04-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-04-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>05/09/26</td>
                                 <td><input type="text" id="log-05-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-05-09-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>06/09/26</td>
                                 <td><input type="text" id="log-06-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-06-09-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>07/09/26</td>
                                 <td><input type="text" id="log-07-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-07-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>08/09/26</td>
                                 <td><input type="text" id="log-08-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-08-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>09/09/26</td>
                                 <td><input type="text" id="log-09-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-09-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>10/09/26</td>
                                 <td><input type="text" id="log-10-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-10-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>11/09/26</td>
                                 <td><input type="text" id="log-11-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-11-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>12/09/26</td>
                                 <td><input type="text" id="log-12-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-12-09-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>13/09/26</td>
                                 <td><input type="text" id="log-13-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-13-09-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>14/09/26</td>
                                 <td><input type="text" id="log-14-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-14-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>15/09/26</td>
                                 <td><input type="text" id="log-15-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-15-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>16/09/26</td>
                                 <td><input type="text" id="log-16-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-16-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>17/09/26</td>
                                 <td><input type="text" id="log-17-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-17-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>18/09/26</td>
                                 <td><input type="text" id="log-18-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-18-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>19/09/26</td>
                                 <td><input type="text" id="log-19-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-19-09-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>20/09/26</td>
                                 <td><input type="text" id="log-20-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-20-09-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>21/09/26</td>
                                 <td><input type="text" id="log-21-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-21-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>22/09/26</td>
                                 <td><input type="text" id="log-22-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-22-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>23/09/26</td>
                                 <td><input type="text" id="log-23-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-23-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>24/09/26</td>
                                 <td><input type="text" id="log-24-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-24-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>25/09/26</td>
                                 <td><input type="text" id="log-25-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-25-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>26/09/26</td>
                                 <td><input type="text" id="log-26-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-26-09-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>27/09/26</td>
                                 <td><input type="text" id="log-27-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-27-09-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>28/09/26</td>
                                 <td><input type="text" id="log-28-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-28-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>29/09/26</td>
                                 <td><input type="text" id="log-29-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-29-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>30/09/26</td>
                                 <td><input type="text" id="log-30-09-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-30-09-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>01/10/26</td>
                                 <td><input type="text" id="log-01-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-01-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>02/10/26</td>
                                 <td><input type="text" id="log-02-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-02-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>03/10/26</td>
                                 <td><input type="text" id="log-03-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-03-10-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>04/10/26</td>
                                 <td><input type="text" id="log-04-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-04-10-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>05/10/26</td>
                                 <td><input type="text" id="log-05-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-05-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>06/10/26</td>
                                 <td><input type="text" id="log-06-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-06-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>07/10/26</td>
                                 <td><input type="text" id="log-07-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-07-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>08/10/26</td>
                                 <td><input type="text" id="log-08-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-08-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>09/10/26</td>
                                 <td><input type="text" id="log-09-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="8:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-09-10-26">OJT</td>
                             </tr>
                             <tr>
                                 <td>10/10/26</td>
                                 <td><input type="text" id="log-10-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SATURDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-10-10-26">SATURDAY</td>
                             </tr>
                             <tr>
                                 <td>11/10/26</td>
                                 <td><input type="text" id="log-11-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input" value=""
-                                        oninput="calculateHours()"></td>
-                                <td class="weekend">SUNDAY</td>
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-11-10-26">SUNDAY</td>
                             </tr>
                             <tr>
                                 <td>12/10/26</td>
                                 <td><input type="text" id="log-12-10-26"
                                         class="form-control form-control-sm text-center logged-hour-input"
-                                        value="7:00:00" oninput="calculateHours()"></td>
-                                <td class="ojt">OJT</td>
+                                        value="7:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-12-10-26">OJT</td>
                             </tr>
                         </tbody>
                     </table>
@@ -559,16 +567,14 @@
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">MONDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">MONDAY &rarr;</div>
                         <div class="col-8 small">* 07:30 AM &ndash; 09:00 AM (Faculty: ENIERGA, RIBERT)</div>
                     </div>
                 </div>
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">TUESDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">TUESDAY &rarr;</div>
                         <div class="col-8 small">
                             * 07:30 AM &ndash; 10:30 AM <br>
                             * 10:30 AM &ndash; 01:30 PM <br>
@@ -579,16 +585,14 @@
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">WEDNESDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">WEDNESDAY &rarr;</div>
                         <div class="col-8 small">* 04:00 PM &ndash; 05:30 PM </div>
                     </div>
                 </div>
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">THURSDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">THURSDAY &rarr;</div>
                         <div class="col-8 small">
                             * 07:30 AM &ndash; 09:00 AM (Faculty: ENIERGA, RIBERT) <br>
                             * 10:30 AM &ndash; 01:30 PM (No prof) <br>
@@ -599,8 +603,7 @@
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">FRIDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">FRIDAY &rarr;</div>
                         <div class="col-8 small">
                             * 07:30 AM &ndash; 10:30 AM <br>
                             * 04:00 PM &ndash; 05:30 PM <br>
@@ -611,16 +614,14 @@
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">SATURDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">SATURDAY &rarr;</div>
                         <div class="col-8 small">* 10:30 AM &ndash; 01:30 PM (Faculty: ENIERGA, RIBERT)</div>
                     </div>
                 </div>
 
                 <div class="planner-card">
                     <div class="row align-items-center">
-                        <div class="col-4 planner-day">SUNDAY &rarr;<br><small class="text-muted"></small>
-                        </div>
+                        <div class="col-4 planner-day">SUNDAY &rarr;</div>
                         <div class="col-8 small">* NO CLASSES / FREE DAY</div>
                     </div>
                 </div>
@@ -641,19 +642,46 @@
             return parseFloat(timeString) || 0;
         }
 
+        function updateRowStatus(inputElement) {
+            const val = inputElement.value.trim().toLowerCase();
+            const logId = inputElement.id;
+            const statusId = logId.replace('log-', 'status-');
+            const statusCell = document.getElementById(statusId);
+
+            if (!statusCell) return;
+
+            const hours = parseTimeToHours(val);
+
+            if (val === '0' || val.includes('absent')) {
+                statusCell.className = 'status-cell absent';
+                statusCell.innerText = 'ABSENT';
+            } else if (hours > 0 || val.includes('ojt')) {
+                statusCell.className = 'status-cell ojt';
+                statusCell.innerText = 'OJT';
+            } else if (val === '') {
+                if (!statusCell.classList.contains('holiday') && !statusCell.classList.contains('weekend')) {
+                    statusCell.className = 'status-cell default';
+                    statusCell.innerText = '-';
+                }
+            }
+        }
+
+        function handleInput(inputElement) {
+            updateRowStatus(inputElement);
+            calculateHours();
+        }
+
         function calculateHours() {
             const inputs = document.querySelectorAll('.logged-hour-input');
             let totalRendered = 0;
 
             inputs.forEach(input => {
-                // Save current input value to local storage using its ID as the key
                 if (input.id) {
                     localStorage.setItem('ojt_' + input.id, input.value);
                 }
                 totalRendered += parseTimeToHours(input.value);
             });
 
-            // Save Target Hours
             const reqInput = document.getElementById('requiredHours');
             localStorage.setItem('ojt_requiredHours', reqInput.value);
 
@@ -674,6 +702,7 @@
                     if (savedValue !== null) {
                         input.value = savedValue;
                     }
+                    updateRowStatus(input);
                 }
             });
 
@@ -694,7 +723,6 @@
 
         document.addEventListener('DOMContentLoaded', loadSavedData);
     </script>
-
 </body>
 
 </html>
