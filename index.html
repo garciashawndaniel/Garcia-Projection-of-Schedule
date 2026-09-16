@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Projection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #436e2f 0%, #030000 100%);
@@ -112,10 +117,536 @@
             color: #888888 !important;
             text-align: center;
         }
+
+        /* =====================================================
+           ADDITIONS BELOW — new professional UI layer.
+           Nothing above this comment was changed; these rules
+           only add new elements and refine existing ones via
+           the cascade (later rule / higher specificity wins).
+           ===================================================== */
+
+        :root {
+            --accent-green: #3ecf6e;
+            --accent-green-dim: rgba(62, 207, 110, 0.16);
+            --accent-amber: #e8a33d;
+            --accent-red: #e5484d;
+            --panel-deep: #101314;
+            --panel-line: rgba(255, 255, 255, 0.09);
+            --text-muted: #9aa39e;
+            --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        body {
+            font-family: var(--font-display);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+        }
+
+        body>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        ::selection {
+            background: var(--accent-green);
+            color: #0a0a0a;
+        }
+
+        /* focus visibility for keyboard users */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--accent-green);
+            outline-offset: 2px;
+        }
+
+        /* ---------- Top status bar ---------- */
+        .topbar {
+            border-bottom: 1px solid var(--panel-line);
+            background: rgba(3, 3, 3, 0.55);
+            backdrop-filter: blur(6px);
+            padding: 12px 24px;
+        }
+
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1600px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topbar-brand {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .topbar-brand .brand-mark {
+            color: var(--accent-green);
+        }
+
+        .topbar-brand .brand-slash {
+            color: var(--text-muted);
+            margin: 0 2px;
+        }
+
+        .topbar-brand .brand-sub {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .topbar-clock {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* ---------- Page heading ---------- */
+        body>h1 {
+            font-family: var(--font-display);
+            letter-spacing: 4px;
+            font-size: 1.9rem;
+        }
+
+        .container-fluid.px-4>.mb-3 {
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .container-fluid.px-4>.mb-3 strong {
+            color: #ffffff;
+        }
+
+        /* ---------- Hero progress gauge (signature element) ---------- */
+        .hero-gauge {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(62, 207, 110, 0.06), rgba(16, 19, 20, 0.6));
+            border: 1px solid var(--panel-line);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .gauge-ring-wrap {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            flex: 0 0 auto;
+        }
+
+        .gauge-ring {
+            width: 160px;
+            height: 160px;
+            transform: rotate(-90deg);
+        }
+
+        .gauge-ring-track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 10;
+        }
+
+        .gauge-ring-fill {
+            fill: none;
+            stroke: var(--accent-green);
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 439.8;
+            stroke-dashoffset: 439.8;
+            filter: drop-shadow(0 0 6px rgba(62, 207, 110, 0.65));
+            transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gauge-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-percent {
+            font-family: var(--font-mono);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .gauge-percent-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .gauge-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+            gap: 14px 28px;
+            flex: 1 1 260px;
+        }
+
+        .gauge-stat {
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid var(--accent-green);
+            padding-left: 10px;
+        }
+
+        .gauge-stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .gauge-stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* ---------- Refine summary card ---------- */
+        .summary-card {
+            border-radius: 12px;
+            border-color: var(--panel-line);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .summary-card h4 {
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+            font-size: 1.05rem;
+        }
+
+        .summary-card .btn-outline-danger {
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            transition: transform 0.15s ease;
+        }
+
+        .summary-card .btn-outline-danger:hover {
+            transform: translateY(-1px);
+        }
+
+        #renderedHours,
+        #remainingHoursDisplay,
+        #requiredHours {
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+
+        /* ---------- Refine attendance log table ---------- */
+        h4.fw-bold.text-center {
+            font-family: var(--font-display);
+            letter-spacing: 1.5px;
+            font-size: 1.05rem;
+        }
+
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: var(--panel-deep);
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: var(--accent-green);
+            border-radius: 8px;
+        }
+
+        .log-table {
+            border-radius: 12px;
+            font-family: var(--font-mono);
+        }
+
+        .log-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+        }
+
+        /* Override the original hover (higher specificity + later in cascade
+           wins over ".log-table :hover") with a calmer, on-brand highlight */
+        .log-table tbody tr:hover td {
+            background-color: var(--accent-green-dim) !important;
+        }
+
+        /* This class is referenced by the existing validateTimeFormat/
+           updateRowStatus JS but had no styling defined anywhere — adding it
+           so invalid entries are actually visible to the user */
+        .logged-hour-input.is-invalid-input {
+            border-color: var(--accent-red) !important;
+            background-color: rgba(229, 72, 77, 0.16) !important;
+            box-shadow: 0 0 0 0.15rem rgba(229, 72, 77, 0.25) !important;
+        }
+
+        /* ---------- Refine weekly planner cards ---------- */
+        .planner-card {
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-green);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+
+        /* Neutralize the original ".planner-card :hover" purple-flash rule
+           (same specificity, later in source order → this wins) */
+        .planner-card:hover,
+        .planner-card *:hover {
+            background-color: transparent !important;
+        }
+
+        .planner-card:hover {
+            transform: translateX(4px);
+            border-left-color: var(--accent-green);
+            box-shadow: 0 6px 18px rgba(62, 207, 110, 0.18);
+        }
+
+        .planner-day {
+            font-family: var(--font-mono);
+            letter-spacing: 0.5px;
+            color: var(--accent-green);
+            border-right-color: var(--panel-line);
+        }
+
+        /* ---------- Footer verse card ---------- */
+        .mb-5 {
+            max-width: 900px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            background: var(--panel-deep);
+            border: 1px solid var(--panel-line);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 10px;
+            padding: 20px 24px !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mb-5 strong {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* ---------- Responsive polish ---------- */
+        @media (max-width: 767px) {
+            .hero-gauge {
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .gauge-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            body>h1 {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+        }
+
+
+        /* ---------- Login Screen ---------- */
+        #loginScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at top, rgba(62, 207, 110, 0.14), rgba(3, 3, 3, 0.98) 55%);
+            backdrop-filter: blur(10px);
+        }
+
+        #loginCard {
+            width: min(420px, 100%);
+            background: rgba(16, 19, 20, 0.96);
+            border: 1px solid var(--panel-line);
+            border-top: 3px solid var(--accent-green);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+        }
+
+        .login-logo {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.45rem;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .login-logo span {
+            color: var(--accent-green);
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-bottom: 28px;
+        }
+
+        #loginCard .form-label {
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.5px;
+        }
+
+        #loginCard .form-control {
+            background: #242526 !important;
+            color: #fff !important;
+            border: 1px solid #555 !important;
+            border-radius: 9px;
+            padding: 10px 12px;
+        }
+
+        #loginCard .form-control:focus {
+            border-color: var(--accent-green) !important;
+            box-shadow: 0 0 0 0.2rem rgba(62, 207, 110, 0.18) !important;
+        }
+
+        #loginButton {
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px;
+            border: 0;
+            border-radius: 9px;
+            background: var(--accent-green);
+            color: #07110a;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: transform 0.15s ease, filter 0.15s ease;
+        }
+
+        #loginButton:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        #errorMsg {
+            display: none;
+            margin-top: 14px;
+            padding: 9px 10px;
+            border: 1px solid rgba(229, 72, 77, 0.5);
+            border-radius: 8px;
+            background: rgba(229, 72, 77, 0.12);
+            color: #ff9a9d;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        #logoutButton {
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        body.logged-out>*:not(#loginScreen) {
+            visibility: hidden;
+        }
+
+        body.logged-in #loginScreen {
+            display: none;
+        }
+
+        body.logged-out #logoutButton {
+            visibility: hidden;
+            pointer-events: none;
+        }
     </style>
 </head>
 
-<body>
+<body class="logged-out">
+
+    <!-- Login screen -->
+    <div id="loginScreen" aria-label="Login screen">
+        <div id="loginCard">
+            <div class="login-logo"><span>OJT</span> // TRACKER</div>
+            <div class="login-subtitle">SCHEDULE PROJECTION &amp; ATTENDANCE SYSTEM</div>
+
+            <form onsubmit="handleLogin(event)" autocomplete="off">
+                <div class="mb-3">
+                    <label for="username" class="form-label">USERNAME</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter username" required
+                        autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">PASSWORD</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" id="loginButton">LOGIN</button>
+                <div id="errorMsg" role="alert">Invalid username or password.</div>
+            </form>
+        </div>
+    </div>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="topbar-brand">
+                <span class="brand-mark">OJT</span><span class="brand-slash">//</span><span
+                    class="brand-sub">TRACKER</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="topbar-clock" id="liveClock">--:--:--</div>
+                <button type="button" id="logoutButton" class="btn btn-sm btn-outline-light"
+                    onclick="handleLogout()">LOGOUT</button>
+            </div>
+        </div>
+    </header>
+
     <h1
         style="text-align: center; font-weight: bold; color:rgb(188, 224, 173); text-shadow: 2px 2px 4px #000000; margin-top: 20px;">
         SCHEDULE PROJECTION
@@ -124,6 +655,37 @@
     <div class="container-fluid px-4">
         <div class="mb-3">
             <strong>Shawn Daniel A. Garcia <br> BSCPE 3-2 </strong>
+        </div>
+
+        <div class="hero-gauge">
+            <div class="gauge-ring-wrap">
+                <svg viewBox="0 0 160 160" class="gauge-ring" aria-hidden="true">
+                    <circle cx="80" cy="80" r="70" class="gauge-ring-track"></circle>
+                    <circle cx="80" cy="80" r="70" class="gauge-ring-fill" id="gaugeRingFill"></circle>
+                </svg>
+                <div class="gauge-center">
+                    <div class="gauge-percent" id="gaugePercent">0%</div>
+                    <div class="gauge-percent-label">COMPLETE</div>
+                </div>
+            </div>
+            <div class="gauge-stats">
+                <div class="gauge-stat">
+                    <span class="gauge-stat-label">Rendered</span>
+                    <span class="gauge-stat-value" id="gaugeRendered">0.0 hrs</span>
+                </div>
+                <div class="gauge-stat">
+                    <span class="gauge-stat-label">Target</span>
+                    <span class="gauge-stat-value" id="gaugeTarget">0.0 hrs</span>
+                </div>
+                <div class="gauge-stat">
+                    <span class="gauge-stat-label">Remaining</span>
+                    <span class="gauge-stat-value" id="gaugeRemaining">0.0 hrs</span>
+                </div>
+                <div class="gauge-stat">
+                    <span class="gauge-stat-label">Status</span>
+                    <span class="gauge-stat-value" id="gaugeStatus">STANDBY</span>
+                </div>
+            </div>
         </div>
 
         <div class="row mb-4">
@@ -565,6 +1127,306 @@
                                         class="form-control form-control-sm text-center logged-hour-input"
                                         value="7:00:00" oninput="handleInput(this)"></td>
                                 <td class="status-cell ojt" id="status-12-10-26">OJT</td>
+                            <tr>
+                                <td>October 13, 2026</td>
+                                <td><input type="text" id="log-13-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-13-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 14, 2026</td>
+                                <td><input type="text" id="log-14-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-14-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 15, 2026</td>
+                                <td><input type="text" id="log-15-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-15-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 16, 2026</td>
+                                <td><input type="text" id="log-166-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-16-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 17, 2026</td>
+                                <td><input type="text" id="log-17-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-17-10-26">SATURDAY</td>
+                            </tr>
+                            <tr>
+                                <td>October 18, 2026</td>
+                                <td><input type="text" id="log-18-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-18-10-26">SUNDAY</td>
+                            </tr>
+                            <tr>
+                                <td>October 19, 2026</td>
+                                <td><input type="text" id="log-19-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-19-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 20, 2026</td>
+                                <td><input type="text" id="log-20-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-20-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 21, 2026</td>
+                                <td><input type="text" id="log-21-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="8:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-21-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 22, 2026</td>
+                                <td><input type="text" id="log-22-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-22-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 23, 2026</td>
+                                <td><input type="text" id="log-23-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-23-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 24, 2026</td>
+                                <td><input type="text" id="log-24-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input"
+                                        value="7:00:00" oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-24-10-26">SATURDAY</td>
+                            </tr>
+                            <tr>
+                                <td>October 25, 2026</td>
+                                <td><input type="text" id="log-25-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-25-10-26">SUNDAY</td>
+                            </tr>
+                            <tr>
+                                <td>October 26, 2026</td>
+                                <td><input type="text" id="log-26-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-26-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 27, 2026</td>
+                                <td><input type="text" id="log-27-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-27-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 28, 2026</td>
+                                <td><input type="text" id="log-28-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-28-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 29, 2026</td>
+                                <td><input type="text" id="log-29-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-29-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 30, 2026</td>
+                                <td><input type="text" id="log-30-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-30-10-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>October 31, 2026</td>
+                                <td><input type="text" id="log-31-10-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-31-10-26">SATURDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 01, 2026</td>
+                                <td><input type="text" id="log-01-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell holiday" id="status-01-11-26">HOLIDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 02, 2026</td>
+                                <td><input type="text" id="log-02-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell holiday" id="status-02-11-26">HOLIDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 03, 2026</td>
+                                <td><input type="text" id="log-03-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-03-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 04, 2026</td>
+                                <td><input type="text" id="log-04-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-04-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 05, 2026</td>
+                                <td><input type="text" id="log-05-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-05-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 06, 2026</td>
+                                <td><input type="text" id="log-06-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-06-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 07, 2026</td>
+                                <td><input type="text" id="log-07-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-07-11-26">SATURDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 08, 2026</td>
+                                <td><input type="text" id="log-08-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-08-11-26">SUNDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 09, 2026</td>
+                                <td><input type="text" id="log-09-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-09-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 10, 2026</td>
+                                <td><input type="text" id="log-10-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-10-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 11, 2026</td>
+                                <td><input type="text" id="log-11-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-11-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 12, 2026</td>
+                                <td><input type="text" id="log-12-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-12-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 13, 2026</td>
+                                <td><input type="text" id="log-13-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-13-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 14, 2026</td>
+                                <td><input type="text" id="log-14-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-14-11-26">SATURDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 15, 2026</td>
+                                <td><input type="text" id="log-15-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-15-11-26">SUNDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 16, 2026</td>
+                                <td><input type="text" id="log-16-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-16-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 17, 2026</td>
+                                <td><input type="text" id="log-17-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-17-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 18, 2026</td>
+                                <td><input type="text" id="log-18-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-18-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 19, 2026</td>
+                                <td><input type="text" id="log-19-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-19-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 20, 2026</td>
+                                <td><input type="text" id="log-20-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-20-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 21, 2026</td>
+                                <td><input type="text" id="log-21-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-21-11-26">SATURDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 22, 2026</td>
+                                <td><input type="text" id="log-22-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell weekend" id="status-22-11-26">SUNDAY</td>
+                            </tr>
+                            <tr>
+                                <td>November 23, 2026</td>
+                                <td><input type="text" id="log-23-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-23-11-26">OJT</td>
+                            </tr>
+                            <tr>
+                                <td>November 24, 2026</td>
+                                <td><input type="text" id="log-24-11-26"
+                                        class="form-control form-control-sm text-center logged-hour-input" value=""
+                                        oninput="handleInput(this)"></td>
+                                <td class="status-cell ojt" id="status-24-11-26">OJT</td>
                             </tr>
                         </tbody>
                     </table>
@@ -572,7 +1434,7 @@
             </div>
 
             <div class="col-md-5">
-                <h3 class="fw-bold text-center mb-3" style="letter-spacing: 2px;">WEEKLY PLANNER</h3>
+                <h4 class="fw-bold text-center mb-3" style="letter-spacing: 2px;">WEEKLY PLANNER</h4>
 
                 <div class="planner-card">
                     <div class="row align-items-center">
@@ -639,6 +1501,38 @@
     </div>
 
     <script>
+
+        const AUTH_USER = "Shawn";
+        const AUTH_PASS = "labubu";
+
+        function handleLogin(e) {
+            e.preventDefault();
+
+            const user = document.getElementById("username").value.trim();
+            const pass = document.getElementById("password").value;
+            const errorMsg = document.getElementById("errorMsg");
+
+            if (user === AUTH_USER && pass === AUTH_PASS) {
+                errorMsg.style.display = "none";
+                document.body.classList.remove("logged-out");
+                document.body.classList.add("logged-in");
+                calculateHours();
+            } else {
+                errorMsg.style.display = "block";
+                document.getElementById("password").value = "";
+                document.getElementById("password").focus();
+            }
+        }
+
+        function handleLogout() {
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+            document.getElementById("errorMsg").style.display = "none";
+            document.body.classList.remove("logged-in");
+            document.body.classList.add("logged-out");
+            document.getElementById("username").focus();
+        }
+
         function parseTimeToHours(timeString) {
             if (!timeString) return 0;
             const parts = timeString.trim().split(':');
@@ -755,6 +1649,83 @@
 
         document.addEventListener('DOMContentLoaded', loadSavedData);
     </script>
+
+    <script>
+        /* ===================================================
+           ADDITIONS BELOW — drives the new topbar clock and
+           progress gauge. This does not edit any function
+           above; it wraps calculateHours() from the outside
+           so the original logic is left completely intact.
+           =================================================== */
+        (function () {
+            const RING_CIRCUMFERENCE = 2 * Math.PI * 70; // matches r="70" on the SVG circle
+
+            function updateClock() {
+                const el = document.getElementById('liveClock');
+                if (!el) return;
+                const now = new Date();
+                el.textContent = now.toLocaleDateString(undefined, { month: 'short', day: '2-digit', year: 'numeric' })
+                    + '  ' + now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            }
+
+            function updateGauge() {
+                const renderedInput = document.getElementById('renderedHours');
+                const requiredInput = document.getElementById('requiredHours');
+                const remainingDisplay = document.getElementById('remainingHoursDisplay');
+                const ringFill = document.getElementById('gaugeRingFill');
+                if (!renderedInput || !requiredInput || !ringFill) return;
+
+                const rendered = parseFloat(renderedInput.value) || 0;
+                const target = parseFloat(requiredInput.value) || 0;
+                const pct = target > 0 ? Math.min(100, Math.max(0, (rendered / target) * 100)) : 0;
+
+                ringFill.style.strokeDasharray = RING_CIRCUMFERENCE.toFixed(2);
+                ringFill.style.strokeDashoffset = (RING_CIRCUMFERENCE * (1 - pct / 100)).toFixed(2);
+
+                const percentLabel = document.getElementById('gaugePercent');
+                const renderedLabel = document.getElementById('gaugeRendered');
+                const targetLabel = document.getElementById('gaugeTarget');
+                const remainingLabel = document.getElementById('gaugeRemaining');
+                const statusLabel = document.getElementById('gaugeStatus');
+
+                if (percentLabel) percentLabel.textContent = pct.toFixed(1) + '%';
+                if (renderedLabel) renderedLabel.textContent = rendered.toFixed(1) + ' hrs';
+                if (targetLabel) targetLabel.textContent = target.toFixed(1) + ' hrs';
+                if (remainingLabel) remainingLabel.textContent = remainingDisplay ? remainingDisplay.innerText : '0.0 hrs';
+                if (statusLabel) {
+                    statusLabel.textContent = pct >= 100 ? 'COMPLETE' : (pct >= 50 ? 'ON TRACK' : (pct > 0 ? 'IN PROGRESS' : 'STANDBY'));
+                }
+            }
+
+            function wireGaugeToTracker() {
+                if (typeof window.calculateHours === 'function' && !window.__gaugeWired) {
+                    const originalCalculateHours = window.calculateHours;
+                    window.calculateHours = function () {
+                        originalCalculateHours();
+                        updateGauge();
+                    };
+                    window.__gaugeWired = true;
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                wireGaugeToTracker();
+                updateGauge();
+                updateClock();
+                setInterval(updateClock, 1000);
+            });
+        })();
+    </script>
 </body>
 
 </html>
+
+<br>
+<br>
+
+<div class="container-fluid px-4">
+    <div class="mb-5">
+        <strong>Jeremiah 29:11 (NIV)
+            “For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans
+            to give you hope and a future.”</strong>
+    </div>
