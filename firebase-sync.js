@@ -18,7 +18,7 @@ const firebaseConfig = {
 };
 
 // The User UID of YOUR account (copy it from Firebase > Authentication > Users)
-const OWNER_UID = '5OuiriEyF9czM63YRRSx5AegawG3';
+const OWNER_UID = 'NGR9WiKtZ3Oq1XOgaAzD6tl5ke23';
 /* ============================================================
    Do not change anything below this line.
    ============================================================ */
@@ -53,7 +53,7 @@ const OWNER_UID = '5OuiriEyF9czM63YRRSx5AegawG3';
             badge.id = 'viewOnlyBadge';
             badge.textContent = 'VIEW ONLY';
             badge.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:9999;' +
-                'background:#e8a33d;color:#101314;font-family:monospace;font-weight:700;' +
+                'background:#C1ED85;color:#101314;font-family:monospace;font-weight:700;' +
                 'letter-spacing:1px;font-size:0.8rem;padding:6px 12px;border-radius:8px;';
             document.body.appendChild(badge);
         }

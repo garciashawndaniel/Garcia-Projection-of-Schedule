@@ -150,9 +150,9 @@
         var S = 2;                           // 2x for a sharp picture
         var PAD = 25, W = 900;
         var cols = [
-            { label: 'DATE',         w: 300, align: 'left'   },
-            { label: 'TIME IN',      w: 180, align: 'center' },
-            { label: 'TIME OUT',     w: 180, align: 'center' },
+            { label: 'DATE', w: 300, align: 'left' },
+            { label: 'TIME IN', w: 180, align: 'center' },
+            { label: 'TIME OUT', w: 180, align: 'center' },
             { label: 'HOURS LOGGED', w: 190, align: 'center' }
         ];
         var tableW = 850;
