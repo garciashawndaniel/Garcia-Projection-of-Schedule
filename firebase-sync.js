@@ -2,7 +2,10 @@
    firebase-sync.js  -  Saves your OJT data to the cloud (Firebase)
    so the desktop app and the website show the same data.
 
-   Your firebaseConfig is already filled in below.
+   OWNER account  = can edit and save.
+   OTHER accounts = can only VIEW (all inputs are locked).
+
+   ONLY EDIT OWNER_UID BELOW (see the guide).
    ============================================================ */
 const firebaseConfig = {
     apiKey: "AIzaSyDALxRnlqQvAKz6PzRLFuvF-RMdKhXw-78",
@@ -13,6 +16,9 @@ const firebaseConfig = {
     appId: "1:875842484525:web:952e43741ef221ad2c3ba4",
     measurementId: "G-ZCMGCDHJXW"
 };
+
+// The User UID of YOUR account (copy it from Firebase > Authentication > Users)
+const OWNER_UID = '5OuiriEyF9czM63YRRSx5AegawG3';
 /* ============================================================
    Do not change anything below this line.
    ============================================================ */
@@ -21,14 +27,37 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+    const dataDoc = db.collection('users').doc(OWNER_UID);
 
     let uid = null;
+    let isOwner = false;
     let pulledFor = null;
     let timer;
 
     function setLoggedIn(on) {
         document.body.classList.toggle('logged-in', on);
         document.body.classList.toggle('logged-out', !on);
+    }
+
+    // Lock or unlock the page (locked = view only)
+    function setViewOnly(on) {
+        document.querySelectorAll('.logged-hour-input, #requiredHours').forEach(function (el) {
+            el.readOnly = on;
+        });
+        const resetBtn = document.querySelector('button[onclick="resetAllLogs()"]');
+        if (resetBtn) resetBtn.style.display = on ? 'none' : '';
+
+        let badge = document.getElementById('viewOnlyBadge');
+        if (!badge) {
+            badge = document.createElement('div');
+            badge.id = 'viewOnlyBadge';
+            badge.textContent = 'VIEW ONLY';
+            badge.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:9999;' +
+                'background:#e8a33d;color:#101314;font-family:monospace;font-weight:700;' +
+                'letter-spacing:1px;font-size:0.8rem;padding:6px 12px;border-radius:8px;';
+            document.body.appendChild(badge);
+        }
+        badge.style.display = on ? 'block' : 'none';
     }
 
     // Gather everything the tracker saved in this device
@@ -41,11 +70,11 @@ const firebaseConfig = {
         return data;
     }
 
-    // Upload to the cloud
+    // Upload to the cloud (owner only)
     async function push() {
-        if (!uid) return;
+        if (!uid || !isOwner) return;
         try {
-            await db.collection('users').doc(uid).set({
+            await dataDoc.set({
                 data: collectLocal(),
                 updatedAt: Date.now()
             });
@@ -54,15 +83,15 @@ const firebaseConfig = {
         }
     }
 
-    // Download from the cloud
+    // Download from the cloud (everyone)
     async function pull() {
         try {
-            const snap = await db.collection('users').doc(uid).get();
+            const snap = await dataDoc.get();
             if (snap.exists) {
                 const cloud = snap.data().data || {};
                 Object.entries(cloud).forEach(([k, v]) => localStorage.setItem(k, v));
                 loadSavedData();   // show the cloud data on screen
-            } else {
+            } else if (isOwner) {
                 await push();      // first time: upload what is on this device
             }
         } catch (err) {
@@ -70,15 +99,16 @@ const firebaseConfig = {
         }
     }
 
-    // Auto-save to the cloud 1 second after you stop typing
+    // Auto-save to the cloud 1 second after you stop typing (owner only)
     document.addEventListener('input', (e) => {
+        if (!isOwner) return;
         if (e.target.matches('.logged-hour-input, #requiredHours')) {
             clearTimeout(timer);
             timer = setTimeout(push, 1000);
         }
     });
 
-    // Replaces the old login (now uses your Firebase email + password)
+    // Login (uses Firebase email + password)
     window.handleLogin = async function (e) {
         e.preventDefault();
         const email = document.getElementById('username').value.trim();
@@ -105,10 +135,9 @@ const firebaseConfig = {
     };
 
     window.resetAllLogs = async function () {
+        if (!isOwner) return;
         if (confirm('Are you sure you want to clear saved values and reset to defaults?')) {
-            if (uid) {
-                try { await db.collection('users').doc(uid).delete(); } catch (err) { console.error(err.message); }
-            }
+            try { await dataDoc.delete(); } catch (err) { console.error(err.message); }
             localStorage.clear();
             location.reload();
         }
@@ -117,13 +146,16 @@ const firebaseConfig = {
     auth.onAuthStateChanged(async (user) => {
         if (user) {
             uid = user.uid;
+            isOwner = (uid === OWNER_UID);
             setLoggedIn(true);
+            setViewOnly(!isOwner);
             if (pulledFor !== uid) {
                 pulledFor = uid;
                 await pull();
             }
         } else {
             uid = null;
+            isOwner = false;
             pulledFor = null;
             setLoggedIn(false);
         }
