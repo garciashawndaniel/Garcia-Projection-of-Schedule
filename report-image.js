@@ -60,7 +60,13 @@ var LUNCH_THRESHOLD_HOURS = 5;     // only subtract if the shift is longer than 
         '  html body > #reportModal { display: block !important; position: static !important; background: none !important; padding: 0 !important; }' +
         '  #reportModal .report-actions { display: none !important; }' +
         '  #reportModal .report-box { overflow: visible !important; background: none !important; }' +
-        '  #reportModal img { max-width: 100% !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }' +
+        '  html { background: #ffffff !important; }' +
+        '  #reportModal { background: #ffffff !important; }' +
+        '  #reportModal img {' +
+        '    max-width: 100% !important; background: #ffffff !important;' +
+        '    filter: grayscale(1) invert(1) contrast(1.2) brightness(1.05) !important;' +
+        '    -webkit-print-color-adjust: exact; print-color-adjust: exact;' +
+        '  }' +
         '}';
     document.head.appendChild(style);
 
