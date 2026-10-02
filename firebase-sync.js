@@ -1,12 +1,4 @@
-/* ============================================================
-   firebase-sync.js  -  Saves your OJT data to the cloud (Firebase)
-   so the desktop app and the website show the same data.
 
-   OWNER account  = can edit and save.
-   OTHER accounts = can only VIEW (all inputs are locked).
-
-   ONLY EDIT OWNER_UID BELOW (see the guide).
-   ============================================================ */
 const firebaseConfig = {
     apiKey: "AIzaSyDALxRnlqQvAKz6PzRLFuvF-RMdKhXw-78",
     authDomain: "shawn-s-project.firebaseapp.com",
@@ -17,11 +9,9 @@ const firebaseConfig = {
     measurementId: "G-ZCMGCDHJXW"
 };
 
-// The User UID of YOUR account (copy it from Firebase > Authentication > Users)
+
 const OWNER_UID = 'NGR9WiKtZ3Oq1XOgaAzD6tl5ke23';
-/* ============================================================
-   Do not change anything below this line.
-   ============================================================ */
+
 
 (function () {
     firebase.initializeApp(firebaseConfig);

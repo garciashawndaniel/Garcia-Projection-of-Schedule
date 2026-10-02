@@ -1,10 +1,3 @@
-/* ============================================================
-   wave-theme.js
-   - Login screen: dark-to-green circuit-board pattern background
-   - Rest of the site: diagonal green banner shapes + a corner
-     circuit-line accent (top right)
-   Same green family already used on the site — no new palette.
-   ============================================================ */
 (function () {
 
     // A small repeating "circuit board" tile: zigzag lines + dots + a ring,
@@ -70,9 +63,9 @@ body > *:not(.wave-bg) { position: relative; z-index: 1; }
     bg.innerHTML =
         '<div class="banner b1"></div><div class="banner b2"></div><div class="banner b3"></div>' +
         '<svg class="corner-circuit" viewBox="0 0 400 260" fill="none" stroke="#47c96a" stroke-width="1.4">' +
-            '<path d="M60 10 L60 70 L110 120 L110 180 M230 0 L230 40 L280 90 L340 90 M180 40 L250 40 L250 100 L360 100"/>' +
-            '<circle cx="110" cy="120" r="6" fill="none"/><circle cx="250" cy="40" r="4" fill="#47c96a" stroke="none"/>' +
-            '<circle cx="60" cy="70" r="3" fill="#47c96a" stroke="none"/><circle cx="340" cy="90" r="3" fill="#47c96a" stroke="none"/>' +
+        '<path d="M60 10 L60 70 L110 120 L110 180 M230 0 L230 40 L280 90 L340 90 M180 40 L250 40 L250 100 L360 100"/>' +
+        '<circle cx="110" cy="120" r="6" fill="none"/><circle cx="250" cy="40" r="4" fill="#47c96a" stroke="none"/>' +
+        '<circle cx="60" cy="70" r="3" fill="#47c96a" stroke="none"/><circle cx="340" cy="90" r="3" fill="#47c96a" stroke="none"/>' +
         '</svg>';
     document.body.insertBefore(bg, document.body.firstChild);
 })();

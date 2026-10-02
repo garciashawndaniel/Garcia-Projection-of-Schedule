@@ -52,21 +52,25 @@ var LUNCH_THRESHOLD_HOURS = 5;     // only subtract if the shift is longer than 
         '.log-table input.time-log-input:focus {' +
         '  border-color: #379737; box-shadow: 0 0 0 0.2rem rgba(55, 151, 55, 0.25);' +
         '}' +
+        '#rpPrintArea { display: none; }' +
         '@media print {' +
-        '  @page { size: A4; margin: 10mm; }' +
-        '  html body { background: none !important; }' +
+        '  @page { size: A4; margin: 14mm; }' +
+        '  html, body { background: #ffffff !important; }' +
         '  html body::before { display: none !important; }' +
-        '  html body > *:not(#reportModal) { display: none !important; }' +
-        '  html body > #reportModal { display: block !important; position: static !important; background: none !important; padding: 0 !important; }' +
-        '  #reportModal .report-actions { display: none !important; }' +
-        '  #reportModal .report-box { overflow: visible !important; background: none !important; }' +
-        '  html { background: #ffffff !important; }' +
-        '  #reportModal { background: #ffffff !important; }' +
-        '  #reportModal img {' +
-        '    max-width: 100% !important; background: #ffffff !important;' +
-        '    filter: grayscale(1) invert(1) contrast(1.2) brightness(1.05) !important;' +
-        '    -webkit-print-color-adjust: exact; print-color-adjust: exact;' +
+        '  html body > *:not(#rpPrintArea) { display: none !important; }' +
+        '  #rpPrintArea {' +
+        '    display: block !important; color: #000000; font-family: ' + MONO + ';' +
         '  }' +
+        '  #rpPrintArea h2 {' +
+        '    font-family: ' + HEAD + '; font-weight: 600; font-size: 20pt; margin: 0 0 4px; color: #000;' +
+        '  }' +
+        '  #rpPrintArea .rp-print-sub { font-size: 9.5pt; color: #333; margin: 0 0 18px; }' +
+        '  #rpPrintArea table { width: 100%; border-collapse: collapse; font-size: 10.5pt; }' +
+        '  #rpPrintArea th, #rpPrintArea td { border: 1px solid #000; padding: 6px 10px; text-align: left; }' +
+        '  #rpPrintArea th.center, #rpPrintArea td.center { text-align: center; }' +
+        '  #rpPrintArea thead th { background: #eee; font-weight: 600; }' +
+        '  #rpPrintArea tr.rp-total td { font-weight: 600; background: #f3f3f3; }' +
+        '  #rpPrintArea tr { page-break-inside: avoid; }' +
         '}';
     document.head.appendChild(style);
 
@@ -406,8 +410,33 @@ var LUNCH_THRESHOLD_HOURS = 5;     // only subtract if the shift is longer than 
         return overlay;
     }
 
+    // ---------- Build the plain white/black text version used only when printing ----------
+    function buildPrintArea(rows, totalText) {
+        var area = document.getElementById('rpPrintArea');
+        if (!area) {
+            area = document.createElement('div');
+            area.id = 'rpPrintArea';
+            document.body.appendChild(area);
+        }
+        var printedOn = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+        var rowsHtml = rows.map(function (r) {
+            return '<tr><td>' + r.date + '</td><td class="center">' + r.tin + '</td>' +
+                   '<td class="center">' + r.tout + '</td><td class="center">' + r.hours + '</td></tr>';
+        }).join('');
+        area.innerHTML =
+            '<h2>Attendance Report</h2>' +
+            '<p class="rp-print-sub">' + printedOn + ' &middot; ' + rows.length + (rows.length === 1 ? ' entry' : ' entries') + '</p>' +
+            '<table>' +
+                '<thead><tr><th>DATE</th><th class="center">TIME IN</th><th class="center">TIME OUT</th><th class="center">HOURS LOGGED</th></tr></thead>' +
+                '<tbody>' + rowsHtml +
+                    '<tr class="rp-total"><td colspan="3">TOTAL</td><td class="center">' + totalText + '</td></tr>' +
+                '</tbody>' +
+            '</table>';
+        return area;
+    }
+
     // ---------- Swap the loading state for the finished picture ----------
-    function showPreview(overlay, dataUrl) {
+    function showPreview(overlay, dataUrl, rows, totalText) {
         var loading = document.getElementById('rpLoading');
         if (loading) loading.remove();
 
@@ -432,7 +461,10 @@ var LUNCH_THRESHOLD_HOURS = 5;     // only subtract if the shift is longer than 
         pr.type = 'button';
         pr.className = 'btn btn-outline-light btn-sm';
         pr.textContent = 'Print';
-        pr.onclick = function () { window.print(); };
+        pr.onclick = function () {
+            buildPrintArea(rows, totalText);
+            window.print();
+        };
 
         var close = document.createElement('button');
         close.type = 'button';
@@ -488,7 +520,7 @@ var LUNCH_THRESHOLD_HOURS = 5;     // only subtract if the shift is longer than 
         var canvas = drawReport(rows, totalText, progressPct);
         await minWait;
         if (!document.body.contains(overlay)) return;   // user closed it while we were drawing
-        showPreview(overlay, canvas.toDataURL('image/png'));
+        showPreview(overlay, canvas.toDataURL('image/png'), rows, totalText);
     };
 
     // ---------- Add the "Print Report" button ----------
